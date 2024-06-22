@@ -2,10 +2,14 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi import HTTPException
 from fastapi.responses import HTMLResponse, FileResponse
+from pydantic import BaseModel
 
 import random
 import os
 
+# Define a Pydantic model for the request body
+class CharacterRequest(BaseModel):
+    character: str
 
 app = FastAPI()
 
@@ -18,9 +22,8 @@ async def get_obstacle_limit():
 
 # 2. Image links of Tom, Jerry and Obstacles. together
 @app.post("/images")
-async def get_image(character: str):
-    character.strip().lower()
-    character = character.strip().lower()
+async def get_image(request: CharacterRequest):
+    character = request.character.strip().lower()
     file_path = os.path.join("images", character+".png")
     if os.path.exists(file_path):
         return FileResponse(file_path)
