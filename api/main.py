@@ -1,7 +1,7 @@
 from typing import Union
 from fastapi import FastAPI
 from fastapi import HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse
 
 import random
 import os
@@ -21,14 +21,11 @@ async def get_obstacle_limit():
 async def get_image(character: str):
     character.strip().lower()
     character = character.strip().lower()
-    if character == "tom":
-        return {"image": os.getenv("TOM_IMG_LINK", "tom-default-link")}
-    elif character == "jerry":
-        return {"image": os.getenv("JERRY_IMG_LINK", "jerry-default-link")}
-    elif character == "obstacle":
-        return {"image": os.getenv("OBSTACLE_IMG_LINK", "obstacle-default-link")}
-    else:
-        raise HTTPException(status_code=404, detail="character should be 'tom' or 'jerry' or 'obstacle'.")
+    file_path = os.path.join("images", character+".png")
+    if os.path.exists(file_path):
+        return FileResponse(file_path)
+    #return {"error": "Image not found"}
+    raise HTTPException(status_code=404, detail="character should be 'tom' or 'jerry' or 'obstacle'.")
 
 # 3. Hacker mode's reward/punishment on hitting a type of obstacle feature-> Implement it by getting the random reward from the API
 # a. 2x/3x speed
