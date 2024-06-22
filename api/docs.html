@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #FFF;
-            color: #005d14;
+            color: #000;
         }
 
         .container {
@@ -21,15 +21,15 @@
         }
 
         header {
-            background: #000;
-            color: #00ff37;
+            background: #FFF;
+            color: #000000;
             padding-top: 30px;
             min-height: 70px;
-            border-bottom: #000 3px solid;
+            border-bottom: #000000 3px solid;
         }
 
         header a {
-            color: #00ff37;
+            color: #FFF;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 16px;
@@ -47,9 +47,9 @@
 
         .main {
             padding: 20px;
-            background: #000;
+            background: #FFFF;
             margin-top: 20px;
-            border: #00ff37 1px solid;
+            border: #000 1px solid;
         }
 
         .endpoint {
@@ -57,11 +57,12 @@
         }
 
         .endpoint h2 {
-            color: #00ff37;
+            color: #000;
         }
 
         .endpoint pre {
             background: #000;
+            color: #00ff37;
             padding: 10px;
             border: #00ff37 1px solid;
             overflow-x: auto;
@@ -96,16 +97,16 @@ Example Response:
                 <li><strong>character</strong> (string) - can take values "tom", "jerry", "obstacle".</li>
             </ul>
             <pre>
-Example Request:
-POST /images
-{
-    "character": "tom"
-}
+                    Example Request:
+                    POST /images
+                    {
+                        "character": "tom"
+                    }
 
-Example Response:
-{
-    "image": "tom-default-link"
-}
+                    Example Response:
+                    {
+                        "image": "tom-default-link"
+                    }
                 </pre>
         </div>
         <div class="endpoint" id="reward">
