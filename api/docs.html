@@ -91,50 +91,38 @@ Example Response:
         </div>
         <div class="endpoint" id="images">
             <h2>POST /images</h2>
-            <p>Returns an image link of the requested character.</p>
+            <p>Returns an image of the requested character.</p>
             <p><strong>Request Parameter:</strong></p>
             <ul>
                 <li><strong>character</strong> (string) - can take values "tom", "jerry", "obstacle".</li>
             </ul>
             <pre>
-Example Request:
+Example Request Body:
 POST /images
 {
     "character": "tom"
 }
 
 Example Response:
-{
-    "image": "tom-default-link"
-}
+Image of tom in .png format
                 </pre>
         </div>
-        <div class="endpoint" id="reward">
-            <h2>GET /reward</h2>
-            <p>Returns a random reward when hitting a type of obstacle in hacker mode.</p>
+        <div class="endpoint" id="hitHindrance">
+            <h2>GET /hitHindrance</h2>
+            <p>Returns a random reward/punishment to be given, on hitting a type of obstacle in hacker mode.</p>
             <pre>
-Possible Rewards:
-- 2x speed
-- 3x speed
-- Auto jump upcoming obstacles for n seconds
+Possible Effects:
+- Type 1 : Increase speed of run by given amount
+- Type 2 : Auto jump upcoming obstacles for given seconds
+- Type 3 : Bring Tom closer by given threshold and if he crosses Jerry, let him catch Jerry
 
 Example Response:
 {
-    "reward": "2x speed"
+    "type":2,
+    "amount":4,
+    "description":"Auto jump upcoming obstacles for given seconds"
 }
-                </pre>
-        </div>
-        <div class="endpoint" id="penalty">
-            <h2>GET /penalty</h2>
-            <p>Returns a random penalty when hitting a type of obstacle in hacker mode.</p>
-            <pre>
-Possible Penalties:
-- Bring Tom closer by one threshold
-
-Example Response:
-{
-    "penalty": "Bring Tom closer by one threshold"
-}
+    Meaning : Let Jerry automatically evade and escape the upcoming obstacles for the next 4 (since "amount" : 4 in the response) seconds after hitting the hindrance.
                 </pre>
         </div>
         <div class="endpoint" id="obstacleCourse">

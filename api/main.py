@@ -34,17 +34,20 @@ async def get_image(request: CharacterRequest):
 # a. 2x/3x speed
 # b.Bring Tom closer by one threshold
 # c.Auto jump upcoming obstacles for n seconds
-@app.get("/reward")
-async def get_reward():
-    rewards = ["2x speed", "3x speed", "Auto jump upcoming obstacles for n seconds"]
-    reward = random.choice(rewards)
-    return {"reward": reward} 
 
-@app.get("/penalty")
-async def get_penalty():
-    penalties = ["Bring Tom closer by one threshold"]
-    penalty = random.choice(penalties)
-    return {"penalty": penalty}
+@app.get("/hitHindrance")
+async def get_reward_or_punish():
+    effects = {1:"Increase speed of run by given amount", 2:"Auto jump upcoming obstacles for given seconds", 3:"Bring Tom closer by given threshold and if he crosses Jerry, let him catch Jerry"}
+    choice = random.randint(1,3)
+    if choice==1:
+        amount = random.randint(2,3)
+    elif choice==2:
+        amount = random.randint(2,6)
+    else:
+        amount = random.randint(1,2)
+    return {"type":choice,
+            "amount":amount,
+            "description":effects[choice]}
 
 # GET /obstacleCourse
 # returns a character array of length (insert length here) with characters "L", "M", "R" in a random order depicting the obstacle course.
@@ -71,8 +74,8 @@ words = {
     15: ["configuration", "navigationgraph"]
 }
 
-# generate a random word of length "n" (taken from querry parameter) characters and return it
-@app.get("/randomWord")
+# generate a random word of length "n" (taken from query parameter) characters and return it
+@app.get("/randomWord/{n}")
 async def get_random_word(n: int):
     if n not in words:
         raise HTTPException(status_code=400, detail="length of word should be between 5 and 15.")
