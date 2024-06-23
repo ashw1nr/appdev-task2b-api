@@ -89,24 +89,22 @@ Example Response:
 }
                 </pre>
         </div>
-        <div class="endpoint" id="images">
-            <h2>POST /images</h2>
+        <div class="endpoint" id="image">
+            <h2>POST /image</h2>
             <p>Returns an image of the requested character.</p>
-            <p><strong>Request Parameter:</strong></p>
-            <ul>
-                <li><strong>character</strong> (string) - can take values "tom", "jerry", "obstacle".</li>
-            </ul>
-            <pre>
-Example Request Body:
-POST /images
-{
-    "character": "tom"
-}
+        <p><strong>Query Parameter:</strong></p>
+        <ul>
+            <li><strong>character</strong> (string) - can take values "tom", "jerry", "obstacle".</li>
+        </ul>
+        <pre>
+Example Request:
+GET /randomWord?character=tom
 
 Example Response:
 Image of tom in .png format
-                </pre>
-        </div>
+            </pre>
+    </div>
+</div>
         <div class="endpoint" id="hitHindrance">
             <h2>GET /hitHindrance</h2>
             <p>Returns a random reward/punishment to be given, on hitting a type of obstacle in hacker mode.</p>
@@ -139,17 +137,20 @@ Example Response:
         <div class="endpoint" id="randomWord">
             <h2>GET /randomWord</h2>
             <p>Generates a random word of a specified length (between 5 and 15 characters) and returns it.</p>
-            <p><strong>Query Parameter:</strong></p>
+            <p><strong>Request Parameter:</strong></p>
             <ul>
-                <li><strong>n</strong> (int) - the length of the word.</li>
+                <li><strong>length</strong> (int) - the length of the word.</li>
             </ul>
             <pre>
-Example Request:
-GET /randomWord?n=6
+Example Request Body:
+POST /randomWord
+{
+    "length": 7
+}
 
 Example Response:
 {
-    "word": "kotlin"
+    "word": "android"
 }
                 </pre>
         </div>

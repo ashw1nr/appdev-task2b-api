@@ -8,8 +8,8 @@ import random
 import os
 
 # Define a Pydantic model for the request body
-class CharacterRequest(BaseModel):
-    character: str
+class WordRequest(BaseModel):
+    length: int
 
 app = FastAPI()
 
@@ -20,10 +20,10 @@ async def get_obstacle_limit():
     obstacle_limit = random.randint(2, 5)
     return {"obstacleLimit": obstacle_limit}
 
-# 2. Image links of Tom, Jerry and Obstacles. together
-@app.post("/images")
-async def get_image(request: CharacterRequest):
-    character = request.character.strip().lower()
+# 2. Images Tom, Jerry and Obstacles. together
+@app.get("/image")
+async def get_image(character: str):
+    character = character.strip().lower()
     file_path = os.path.join("images", character+".png")
     if os.path.exists(file_path):
         return FileResponse(file_path)
@@ -75,8 +75,9 @@ words = {
 }
 
 # generate a random word of length "n" (taken from query parameter) characters and return it
-@app.get("/randomWord/{n}")
-async def get_random_word(n: int):
+@app.post("/randomWord")
+async def get_random_word(request: WordRequest):
+    n = request.length
     if n not in words:
         raise HTTPException(status_code=400, detail="length of word should be between 5 and 15.")
     word = random.choice(words[n])
