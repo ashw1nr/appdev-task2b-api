@@ -1,114 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chase Deux API Documentation</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #FFF;
-            color: #000;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        color: #000;
+      }
 
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+      }
 
-        header {
-            background: #FFF;
-            color: #000000;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #000000 3px solid;
-        }
+      header {
+        background: #fff;
+        color: #000000;
+        padding-top: 30px;
+        min-height: 70px;
+        border-bottom: #000000 3px solid;
+      }
 
-        header a {
-            color: #FFF;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
-        }
+      header a {
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 16px;
+      }
 
-        header ul {
-            padding: 0;
-            list-style: none;
-        }
+      header ul {
+        padding: 0;
+        list-style: none;
+      }
 
-        header li {
-            display: inline;
-            padding: 0 20px 0 20px;
-        }
+      header li {
+        display: inline;
+        padding: 0 20px 0 20px;
+      }
 
-        .main {
-            padding: 20px;
-            background: #FFFF;
-            margin-top: 20px;
-            border: #000 1px solid;
-        }
+      .main {
+        padding: 20px;
+        background: #ffff;
+        margin-top: 20px;
+        border: #000 1px solid;
+      }
 
-        .endpoint {
-            margin-bottom: 20px;
-        }
+      .endpoint {
+        margin-bottom: 20px;
+      }
 
-        .endpoint h2 {
-            color: #000;
-        }
+      .endpoint h2 {
+        color: #000;
+      }
 
-        .endpoint pre {
-            background: #000;
-            color: #00ff37;
-            padding: 10px;
-            border: #00ff37 1px solid;
-            overflow-x: auto;
-        }
+      .endpoint pre {
+        background: #000;
+        color: #00ff37;
+        padding: 10px;
+        border: #00ff37 1px solid;
+        overflow-x: auto;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="container">
-            <div id="branding">
-                <h1>Chase Deux API Documentation</h1>
-            </div>
+      <div class="container">
+        <div id="branding">
+          <h1>Chase Deux API Documentation</h1>
         </div>
+      </div>
     </header>
     <div class="container main">
-        <div class="endpoint" id="obstacleLimit">
-            <h2>GET /obstacleLimit</h2>
-            <p>Returns a number that represents the number of times Jerry can hit an obstacle before Tom catches up.</p>
-            <pre>
+      <div class="endpoint" id="obstacleLimit">
+        <h2>GET /obstacleLimit</h2>
+        <p>
+          Returns a number that represents the number of times Jerry can hit an
+          obstacle before Tom catches up.
+        </p>
+        <pre>
 Example Response:
 {
     "obstacleLimit": 3
 }
-                </pre>
-        </div>
-        <div class="endpoint" id="image">
-            <h2>POST /image</h2>
-            <p>Returns an image of the requested character.</p>
+                </pre
+        >
+      </div>
+      <div class="endpoint" id="image">
+        <h2>GET /image</h2>
+        <p>Returns an image of the requested character.</p>
         <p><strong>Query Parameter:</strong></p>
         <ul>
-            <li><strong>character</strong> (string) - can take values "tom", "jerry", "obstacle".</li>
+          <li>
+            <strong>character</strong> (string) - can take values "tom",
+            "jerry", "obstacle".
+          </li>
         </ul>
         <pre>
 Example Request:
-GET /randomWord?character=tom
+GET /image?character=tom
 
 Example Response:
 Image of tom in .png format
-            </pre>
-    </div>
-</div>
-        <div class="endpoint" id="hitHindrance">
-            <h2>GET /hitHindrance</h2>
-            <p>Returns a random reward/punishment to be given, on hitting a type of obstacle in hacker mode.</p>
-            <pre>
+            </pre
+        >
+      </div>
+      <div class="endpoint" id="hitHindrance">
+        <h2>GET /hitHindrance</h2>
+        <p>
+          Returns a random reward/punishment to be given, on hitting a type of
+          obstacle in hacker mode.
+        </p>
+        <pre>
 Possible Effects:
 - Type 1 : Increase speed of run by given amount
 - Type 2 : Auto jump upcoming obstacles for given seconds
@@ -121,27 +130,35 @@ Example Response:
     "description":"Auto jump upcoming obstacles for given seconds"
 }
     Meaning : Let Jerry automatically evade and escape the upcoming obstacles for the next 4 (since "amount" : 4 in the response) seconds after hitting the hindrance.
-                </pre>
-        </div>
-        <div class="endpoint" id="obstacleCourse">
-            <h2>GET /obstacleCourse</h2>
-            <p>Returns a character array of a specified length depicting the obstacle course. The characters "L", "M",
-                "R", "B" represent different types of obstacles.</p>
-            <pre>
+                </pre
+        >
+      </div>
+      <div class="endpoint" id="obstacleCourse">
+        <h2>GET /obstacleCourse</h2>
+        <p>
+          Returns a character array of a specified length depicting the obstacle
+          course. The characters "L", "M", "R", "B" represent different types of
+          obstacles.
+        </p>
+        <pre>
 Example Response:
 {
     "obstacleCourse": ["L", "M", "R", "B", "L", "M", "R", "B"]
 }
-                </pre>
-        </div>
-        <div class="endpoint" id="randomWord">
-            <h2>GET /randomWord</h2>
-            <p>Generates a random word of a specified length (between 5 and 15 characters) and returns it.</p>
-            <p><strong>Request Parameter:</strong></p>
-            <ul>
-                <li><strong>length</strong> (int) - the length of the word.</li>
-            </ul>
-            <pre>
+                </pre
+        >
+      </div>
+      <div class="endpoint" id="randomWord">
+        <h2>POST /randomWord</h2>
+        <p>
+          Generates a random word of a specified length (between 5 and 15
+          characters) and returns it.
+        </p>
+        <p><strong>Request Parameter:</strong></p>
+        <ul>
+          <li><strong>length</strong> (int) - the length of the word.</li>
+        </ul>
+        <pre>
 Example Request Body:
 POST /randomWord
 {
@@ -152,9 +169,9 @@ Example Response:
 {
     "word": "android"
 }
-                </pre>
-        </div>
+                </pre
+        >
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
