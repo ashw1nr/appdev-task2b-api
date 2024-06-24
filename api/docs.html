@@ -134,16 +134,51 @@ Example Response:
         >
       </div>
       <div class="endpoint" id="obstacleCourse">
-        <h2>GET /obstacleCourse</h2>
+        <h2>POST /obstacleCourse</h2>
         <p>
-          Returns a character array of a specified length depicting the obstacle
-          course. The characters "L", "M", "R", "B" represent different types of
-          obstacles.
+          Returns a character array of a specified size depicting the obstacle
+          course. The characters "L", "M", "R" represent obstacles on the left,
+          middle, right track respectively while "B" represents a trap of
+          another type.
         </p>
         <pre>
+Example Request Body:
+POST /obstacleCourse
+{
+    "extent": 11
+}
+
 Example Response:
 {
-    "obstacleCourse": ["L", "M", "R", "B", "L", "M", "R", "B"]
+    "obstacleCourse": ["M","L","M","M","R","M","R","M","L","L","B"]
+}
+        </pre>
+      </div>
+      <div class="endpoint" id="theme">
+        <h2>POST /theme</h2>
+        <p>
+          Returns the lumen to implement themes in the game.  
+        </p>
+        <p><strong>Request Parameter:</strong></p>
+        <ul>
+          <li><strong>date</strong> (string) - should be of the format "YYYY-MM-DD"</li>
+          <li><strong>time</strong> (string) - should be of the format "HH:MM:SS"</li>
+        </ul>
+        <pre>
+Possible themes:
+- day
+- night
+          
+Example Request Body:
+POST /theme
+{
+    "date" : "2024-09-12",
+    "time" : "19:40:00"
+}
+
+Example Response:
+{
+    "theme":"night"
 }
                 </pre
         >

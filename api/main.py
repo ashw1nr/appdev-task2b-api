@@ -11,6 +11,13 @@ import os
 class WordRequest(BaseModel):
     length: int
 
+class ObstacleCourseRequest(BaseModel):
+    extent: int
+
+class ThemeRequest(BaseModel):
+    date: str
+    time: str
+
 app = FastAPI()
 
 
@@ -53,10 +60,11 @@ async def get_reward_or_punish():
 # returns a character array of length (insert length here) with characters "L", "M", "R" in a random order depicting the obstacle course.
 # used POST for /images because otherwise all routes are just GET
 # example request for POST /image
-@app.get("/obstacleCourse")
-async def get_obstacle_course():
-    obstacle_course = ["L", "M", "R", "B"] * 12
+@app.post("/obstacleCourse")
+async def get_obstacle_course(request: ObstacleCourseRequest):
+    obstacle_course = ["L", "L", "M", "M", "R", "R", "B"] * (request.extent//4 + 1)
     random.shuffle(obstacle_course)
+    obstacle_course = obstacle_course[:request.extent]
     return {"obstacleCourse": obstacle_course}
 
 
@@ -82,6 +90,31 @@ async def get_random_word(request: WordRequest):
         raise HTTPException(status_code=400, detail="length of word should be between 5 and 15.")
     word = random.choice(words[n])
     return {"word": word}
+
+@app.post("/theme")
+async def get_theme(request: ThemeRequest):
+    date = request.date
+    time = request.time
+    theme = "day"
+    if len(date)!=10 or date[4]!="-" or date[7]!="-" or len(time)!=8 or time[2]!=":" or time[5]!=":":
+        raise HTTPException(status_code=400, detail="Enter date(YYYY-MM-DD) and time(HH:MM:SS) in correct format.")
+    try:
+        print(date," ",time)
+        month = int(date[5:7])
+        hour = int(time[:2])
+        mins = int(time[3:5])
+        if month<=4:
+            if hour>17 or hour<9:
+                theme="night"
+        elif month<=8:
+            if hour>18 or hour<8:
+                theme = "night"
+        else:
+            if hour>16 or hour<10:
+                theme = "night"
+    except:
+        raise HTTPException(status_code=400, detail="Enter date in correct format YYYY-MM-DD.")
+    return {"theme": theme}
 
 
 @app.get("/", response_class=HTMLResponse)
